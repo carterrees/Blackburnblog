@@ -1,0 +1,18 @@
+---
+title: Carter’s Post
+author: Carter
+date: '2017-10-26'
+slug: carter-s-post
+categories:
+  - R
+tags:
+  - dplyr
+---
+
+This is a filter
+
+```{r eval = FALSE}
+filtered <- filter %>% 
+  filter(variable = "not this")
+```
+
