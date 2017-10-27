@@ -1,6 +1,6 @@
 baseurl = "/"
 languageCode = "en-us"
-title = "Carter I. Reees, PhD"
+title = "Carter I. Rees, PhD"
 theme = "blackburn"
 author = "Yoshiharu Yamashita"
 copyright = "&copy; 2016. All rights reserved."
@@ -46,5 +46,5 @@ paginate = 10
 [social]
   # Link your social networking accouns to the side menu
   # by entering your username or ID.
-  twitter = "*"
-  linkedin = "*"
+  twitter = "cjphd"
+  linkedin = "cjphd"
