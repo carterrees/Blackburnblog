@@ -34,16 +34,6 @@ We&amp;rsquo;ll start with creating a new site with a very basic template.</desc
     </item>
     
     <item>
-      <title>Carter’s Post</title>
-      <link>/post/carter-s-post/</link>
-      <pubDate>Thu, 26 Oct 2017 00:00:00 +0000</pubDate>
-      
-      <guid>/post/carter-s-post/</guid>
-      <description>This is a filter
-filtered &amp;lt;- filter %&amp;gt;% filter(variable = &amp;quot;not this&amp;quot;) </description>
-    </item>
-    
-    <item>
       <title>Hello R Markdown</title>
       <link>/post/2015-07-23-r-rmarkdown/</link>
       <pubDate>Thu, 23 Jul 2015 21:13:14 -0500</pubDate>
