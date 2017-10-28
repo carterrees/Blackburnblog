@@ -5,27 +5,13 @@ sidemenu = "true"
 description = "About me and this site"
 +++
 
-Hugo is a static site engine written in Go.
+My hometown is Fort Pierre, South Dakota (furt peer, sous-dah-koh-dah is the accent laden pronunciation) , which is a small farming/ranching community on the banks of the Missouri River. I was one of the “city” kids in my class (i.e. not raised next to a cow on a farm). My graduating high school class consisted of 47 kids and I would still recognize every one of them today.
+
+Currently a Data Scientist on the Development/Engineering Team at Domo in American Fork, UT. Domo's product connects a company's  people with the data they need to improve business results. My role is to leverage statistics and machine learning to make our product smarter and give our customers a 360 degree view of their data.
+
+My educational background is a bit eclectic. I have degrees in History, Political Science, and Criminology along with a graduate certificate in Statistics. A common theme running through my undergraduate and master’s program was the Civil Rights Movement and constitutional law in the United States along with the addition of statistical methodology. The quantitative theme continued through my doctoral studies which focused on social networks, social influence and juvenile delinquency. My researched focused on quantifying and modeling the impact of various social network structures on adolescent behavior.
+
+You can find my list of academic publications can be found on my [Google Scholar Profile](https://scholar.google.com/citations?user=ippq3CwAAAAJ&hl=en)
 
 
-It makes use of a variety of open source projects including:
 
-* [Cobra](https://github.com/spf13/cobra)
-* [Viper](https://github.com/spf13/viper)
-* [J Walter Weatherman](https://github.com/spf13/jWalterWeatherman)
-* [Cast](https://github.com/spf13/cast)
-
-Learn more and contribute on [GitHub](https://github.com/spf13).
-
-## Setup
-
-Some fun facts about [Hugo](http://gohugo.io/):
-
-* Built in [Go](http://golang.org/)
-* Loosely inspired by [Jekyll](http://jekyllrb.com/)
-* Primarily developed by [spf13](http://spf13.com/) on the train while commuting to and from Manhattan.
-* Coded in [Vim](http://vim.org) using [spf13-vim](http://vim.spf13.com/)
-
-Have questions or suggestions? Feel free to [open an issue on GitHub](https://github.com/spf13/hugo/issues/new) or [ask me on Twitter](https://twitter.com/spf13).
-
-Thanks for reading!

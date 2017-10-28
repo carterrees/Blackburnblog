@@ -60,11 +60,8 @@ summary(cars) ## speed dist ## Min. : 4.0 Min. : 2.00 ## 1st Qu.:12.0 1st Qu.: 2
       <pubDate>Wed, 09 Apr 2014 00:00:00 +0000</pubDate>
       
       <guid>/about/</guid>
-      <description>Hugo is a static site engine written in Go.
-It makes use of a variety of open source projects including:
- Cobra Viper J Walter Weatherman Cast  Learn more and contribute on GitHub.
-Setup Some fun facts about Hugo:
- Built in Go Loosely inspired by Jekyll Primarily developed by spf13 on the train while commuting to and from Manhattan. Coded in Vim using spf13-vim  Have questions or suggestions?</description>
+      <description>My hometown is Fort Pierre, South Dakota (furt peer, sous-dah-koh-dah is the accent laden pronunciation) , which is a small farming/ranching community on the banks of the Missouri River. I was one of the “city” kids in my class (i.e. not raised next to a cow on a farm). My graduating high school class consisted of 47 kids and I would still recognize every one of them today.
+Currently a Data Scientist on the Development/Engineering Team at Domo in American Fork, UT.</description>
     </item>
     
     <item>
