@@ -7,10 +7,20 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2016. All rights reserved.</copyright>
-    <lastBuildDate>Thu, 23 Jul 2015 21:13:14 -0500</lastBuildDate>
+    <lastBuildDate>Sun, 29 Oct 2017 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Simple Quadratic Regression Example</title>
+      <link>/post/simple-quadratic-regression-example/</link>
+      <pubDate>Sun, 29 Oct 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/post/simple-quadratic-regression-example/</guid>
+      <description>The purpose of this post is to give an example of how to visualize a quadratic linear regression and also how to find the value’s of the predictor variable which give you the min and max fitted values of your outcome of interest.
+I was recently asked to look at relationships between server average query times and variables such as number of query counts, physical devices vs. AWS, disk utilization, number of nodes on a device, etc.</description>
+    </item>
     
     <item>
       <title>Hello R Markdown</title>
