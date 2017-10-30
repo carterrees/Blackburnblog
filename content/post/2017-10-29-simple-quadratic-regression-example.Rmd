@@ -16,8 +16,5 @@ I was recently asked to look at relationships between server average query times
 I like many other data scientists, researchers, statisticians (whomever) like to start every project with simple methods. You can learn a lot from descriptive statistics. If you remember your intro stats course from college there is a chance that
 simple linear regression was taught in the descriptives section. An exmaple of using this method is below.
 
-```{r eval = FALSE}
-filter <- data %>% 
-  filter(this != this)
-```
+
 
