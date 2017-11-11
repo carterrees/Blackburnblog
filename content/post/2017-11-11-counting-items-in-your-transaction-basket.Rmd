@@ -8,7 +8,6 @@ categories:
 tags:
   - dplyr
   - tidyr
-  - plot
 ---
 
 In this post I will show you how to count the number of items a user has selected (or bought, or triggered) within a data feed. 
