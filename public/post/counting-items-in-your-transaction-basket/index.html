@@ -255,8 +255,9 @@ purchases_v1 &lt;- transactions %&gt;% group_by(customer_id, visit_num) %&gt;%
   count(item) %&gt;%
   spread(item, n, fill=0)
 
-print(tbl_df(purchases_v1), n = 8)</code></pre>
+print(purchases_v1)</code></pre>
 <pre><code>## # A tibble: 8 x 7
+## # Groups:   customer_id, visit_num [8]
 ##   customer_id visit_num brakes shoes socks tires trimmer
 ## *      &lt;fctr&gt;    &lt;fctr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
 ## 1      aid123         1      0     1     2     0       0
@@ -274,8 +275,9 @@ purchases_v2 &lt;- transactions %&gt;% group_by(customer_id) %&gt;%
   count(item) %&gt;%
   spread(item, n, fill=0)
 
-print(tbl_df(purchases_v2), n = 8)</code></pre>
+print(purchases_v2)</code></pre>
 <pre><code>## # A tibble: 4 x 6
+## # Groups:   customer_id [4]
 ##   customer_id brakes shoes socks tires trimmer
 ## *      &lt;fctr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
 ## 1      aid123      0     2     2     0       0

@@ -44,7 +44,7 @@ purchases_v1 <- transactions %>% group_by(customer_id, visit_num) %>%
   count(item) %>%
   spread(item, n, fill=0)
 
-print(tbl_df(purchases_v1), n = 8)
+print(purchases_v1)
 ```
 The table above accurately reflects the transaction data. Visitor aid123 bought 1 pair of shoes and 2 pair of socks on the first visit.
 
@@ -56,7 +56,7 @@ purchases_v2 <- transactions %>% group_by(customer_id) %>%
   count(item) %>%
   spread(item, n, fill=0)
 
-print(tbl_df(purchases_v2), n = 8)
+print(purchases_v2)
 
 ```
 
