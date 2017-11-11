@@ -1,0 +1,65 @@
+---
+title: Counting transaction items
+author: Carter Rees
+date: '2017-11-11'
+slug: counting-items-in-your-transaction-basket
+categories:
+  - R
+tags:
+  - dplyr
+  - tidyr
+  - plot
+---
+
+In this post I will show you how to count the number of items a user has selected (or bought, or triggered) within a data feed. 
+
+Transaction data can be a treasure trove of user behavior if you can get it into the right format for counting. I have put together a simple example below on how you can use R to get counts of user click behaviors at various levels of aggregation. Note: the data are entered in a sorted format. You could easily accomplish this by using the arrange command within dplyr.
+
+```{r}
+# Setup example data
+customer_id <- c("aid123","aid123","aid123", "aid123",
+                 "aid432","aid432",
+                 "aid887","aid887","aid887","aid887","aid887",
+                 "aid98","aid98", "aid98")
+visit_num <- c("1", "1", "1", "2",
+               "1", "1",
+               "1", "2", "2", "3", "4",
+               "1", "1", "1")
+item <- c("socks", "socks", "shoes", "shoes",
+          "tires", "brakes", 
+          "shoes","shoes", "shoes", "shoes", "shoes",
+          "trimmer", "trimmer", "trimmer")
+transactions <- data.frame(customer_id,visit_num, item)
+```
+Now that the data is set up, we can count items by visit number by visitor id and then a higher level of aggregation at just visitor id. You can imagine that if you had a date value the aggregation could by visitor id by date of which the result would be daily user behavior counts.
+
+```{r message = FALSE}
+library(dplyr)
+library(tidyr)
+```
+
+```{r}
+# Count items by visitor id and visit number.
+purchases_v1 <- transactions %>% group_by(customer_id, visit_num) %>% 
+  count(item) %>%
+  spread(item, n, fill=0)
+
+print(tbl_df(purchases_v1), n = 8)
+```
+The table above accurately reflects the transaction data. Visitor aid123 bought 1 pair of shoes and 2 pair of socks on the first visit.
+
+The follwing code will create a summary of purchases at the vistor level regardless of visit number.
+
+```{r}
+# Count items by visitor id and visit number.
+purchases_v2 <- transactions %>% group_by(customer_id) %>% 
+  count(item) %>%
+  spread(item, n, fill=0)
+
+print(tbl_df(purchases_v2), n = 8)
+
+```
+
+We can now see that visitor aid887 had 5 shoe purchases that were spread over 4 visits but are now aggregated to reflect overall purchase behavior. 
+
+

@@ -1,0 +1,67 @@
+---
+title: Counting transaction items
+author: Carter Rees
+date: '2017-11-11'
+slug: counting-items-in-your-transaction-basket
+categories:
+  - R
+tags:
+  - dplyr
+  - tidyr
+  - plot
+---
+
+
+
+<p>In this post I will show you how to count the number of items a user has selected (or bought, or triggered) within a data feed.</p>
+<p>Transaction data can be a treasure trove of user behavior if you can get it into the right format for counting. I have put together a simple example below on how you can use R to get counts of user click behaviors at various levels of aggregation. Note: the data are entered in a sorted format. You could easily accomplish this by using the arrange command within dplyr.</p>
+<pre class="r"><code># Setup example data
+customer_id &lt;- c(&quot;aid123&quot;,&quot;aid123&quot;,&quot;aid123&quot;, &quot;aid123&quot;,
+                 &quot;aid432&quot;,&quot;aid432&quot;,
+                 &quot;aid887&quot;,&quot;aid887&quot;,&quot;aid887&quot;,&quot;aid887&quot;,&quot;aid887&quot;,
+                 &quot;aid98&quot;,&quot;aid98&quot;, &quot;aid98&quot;)
+visit_num &lt;- c(&quot;1&quot;, &quot;1&quot;, &quot;1&quot;, &quot;2&quot;,
+               &quot;1&quot;, &quot;1&quot;,
+               &quot;1&quot;, &quot;2&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;,
+               &quot;1&quot;, &quot;1&quot;, &quot;1&quot;)
+item &lt;- c(&quot;socks&quot;, &quot;socks&quot;, &quot;shoes&quot;, &quot;shoes&quot;,
+          &quot;tires&quot;, &quot;brakes&quot;, 
+          &quot;shoes&quot;,&quot;shoes&quot;, &quot;shoes&quot;, &quot;shoes&quot;, &quot;shoes&quot;,
+          &quot;trimmer&quot;, &quot;trimmer&quot;, &quot;trimmer&quot;)
+transactions &lt;- data.frame(customer_id,visit_num, item)</code></pre>
+<p>Now that the data is set up, we can count items by visit number by visitor id and then a higher level of aggregation at just visitor id. You can imagine that if you had a date value the aggregation could by visitor id by date of which the result would be daily user behavior counts.</p>
+<pre class="r"><code>library(dplyr)
+library(tidyr)</code></pre>
+<pre class="r"><code># Count items by visitor id and visit number.
+purchases_v1 &lt;- transactions %&gt;% group_by(customer_id, visit_num) %&gt;% 
+  count(item) %&gt;%
+  spread(item, n, fill=0)
+
+print(tbl_df(purchases_v1), n = 8)</code></pre>
+<pre><code>## # A tibble: 8 x 7
+##   customer_id visit_num brakes shoes socks tires trimmer
+## *      &lt;fctr&gt;    &lt;fctr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
+## 1      aid123         1      0     1     2     0       0
+## 2      aid123         2      0     1     0     0       0
+## 3      aid432         1      1     0     0     1       0
+## 4      aid887         1      0     1     0     0       0
+## 5      aid887         2      0     2     0     0       0
+## 6      aid887         3      0     1     0     0       0
+## 7      aid887         4      0     1     0     0       0
+## 8       aid98         1      0     0     0     0       3</code></pre>
+<p>The table above accurately reflects the transaction data. Visitor aid123 bought 1 pair of shoes and 2 pair of socks on the first visit.</p>
+<p>The follwing code will create a summary of purchases at the vistor level regardless of visit number.</p>
+<pre class="r"><code># Count items by visitor id and visit number.
+purchases_v2 &lt;- transactions %&gt;% group_by(customer_id) %&gt;% 
+  count(item) %&gt;%
+  spread(item, n, fill=0)
+
+print(tbl_df(purchases_v2), n = 8)</code></pre>
+<pre><code>## # A tibble: 4 x 6
+##   customer_id brakes shoes socks tires trimmer
+## *      &lt;fctr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
+## 1      aid123      0     2     2     0       0
+## 2      aid432      1     0     0     1       0
+## 3      aid887      0     5     0     0       0
+## 4       aid98      0     0     0     0       3</code></pre>
+<p>We can now see that visitor aid887 had 5 shoe purchases that were spread over 4 visits but are now aggregated to reflect overall purchase behavior.</p>

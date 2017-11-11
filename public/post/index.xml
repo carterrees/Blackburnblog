@@ -7,10 +7,20 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2016. All rights reserved.</copyright>
-    <lastBuildDate>Sun, 29 Oct 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 11 Nov 2017 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Counting transaction items</title>
+      <link>/post/counting-items-in-your-transaction-basket/</link>
+      <pubDate>Sat, 11 Nov 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/post/counting-items-in-your-transaction-basket/</guid>
+      <description>In this post I will show you how to count the number of items a user has selected (or bought, or triggered) within a data feed.
+Transaction data can be a treasure trove of user behavior if you can get it into the right format for counting. I have put together a simple example below on how you can use R to get counts of user click behaviors at various levels of aggregation.</description>
+    </item>
     
     <item>
       <title>Simple Quadratic Regression Example</title>
