@@ -27,10 +27,29 @@ item &lt;- c(&quot;socks&quot;, &quot;socks&quot;, &quot;shoes&quot;, &quot;shoe
           &quot;tires&quot;, &quot;brakes&quot;, 
           &quot;shoes&quot;,&quot;shoes&quot;, &quot;shoes&quot;, &quot;shoes&quot;, &quot;shoes&quot;,
           &quot;trimmer&quot;, &quot;trimmer&quot;, &quot;trimmer&quot;)
-transactions &lt;- data.frame(customer_id,visit_num, item)</code></pre>
+transactions &lt;- data.frame(customer_id,visit_num, item)
+
+library(dplyr) #Load dplyr here for the tbl_df call.
+print(tbl_df(transactions), n = 14)</code></pre>
+<pre><code>## # A tibble: 14 x 3
+##    customer_id visit_num    item
+##         &lt;fctr&gt;    &lt;fctr&gt;  &lt;fctr&gt;
+##  1      aid123         1   socks
+##  2      aid123         1   socks
+##  3      aid123         1   shoes
+##  4      aid123         2   shoes
+##  5      aid432         1   tires
+##  6      aid432         1  brakes
+##  7      aid887         1   shoes
+##  8      aid887         2   shoes
+##  9      aid887         2   shoes
+## 10      aid887         3   shoes
+## 11      aid887         4   shoes
+## 12       aid98         1 trimmer
+## 13       aid98         1 trimmer
+## 14       aid98         1 trimmer</code></pre>
 <p>Now that the data is set up, we can count items by visit number by visitor id and then a higher level of aggregation at just visitor id. You can imagine that if you had a date value the aggregation could by visitor id by date of which the result would be daily user behavior counts.</p>
-<pre class="r"><code>library(dplyr)
-library(tidyr)</code></pre>
+<pre class="r"><code>library(tidyr)</code></pre>
 <pre class="r"><code># Count items by visitor id and visit number.
 purchases_v1 &lt;- transactions %&gt;% group_by(customer_id, visit_num) %&gt;% 
   count(item) %&gt;%

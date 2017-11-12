@@ -14,7 +14,8 @@ In this post I will show you how to count the number of items a user has selecte
 
 Transaction data can be a treasure trove of user behavior if you can get it into the right format for counting. I have put together a simple example below on how you can use R to get counts of user click behaviors at various levels of aggregation. Note: the data are entered in a sorted format. You could easily accomplish this by using the arrange command within dplyr.
 
-```{r}
+
+```{r message = FALSE}
 # Setup example data
 customer_id <- c("aid123","aid123","aid123", "aid123",
                  "aid432","aid432",
@@ -29,11 +30,13 @@ item <- c("socks", "socks", "shoes", "shoes",
           "shoes","shoes", "shoes", "shoes", "shoes",
           "trimmer", "trimmer", "trimmer")
 transactions <- data.frame(customer_id,visit_num, item)
+
+library(dplyr) #Load dplyr here for the tbl_df call.
+print(tbl_df(transactions), n = 14)
 ```
 Now that the data is set up, we can count items by visit number by visitor id and then a higher level of aggregation at just visitor id. You can imagine that if you had a date value the aggregation could by visitor id by date of which the result would be daily user behavior counts.
 
 ```{r message = FALSE}
-library(dplyr)
 library(tidyr)
 ```
 
