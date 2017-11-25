@@ -31,13 +31,13 @@ item <- c("socks", "socks", "shoes", "shoes",
           "shoes","shoes", "shoes", "shoes", "shoes",
           "trimmer", "trimmer", "trimmer")
 dat_miss2 <- rep(NA, 14)
-df <- data.frame(customer_id,dat_miss1, visit_num, item, dat_miss2)
+df <- data.frame(customer_id, dat_miss1, visit_num, item, dat_miss2)
 
 library(dplyr) #Load dplyr here for the tbl_df call.
 print(tbl_df(df), n = 14)
 ```
 
-You can clearly see which columns are filled with missing data but this wouldn't be the case if you were dealing with millions of rows across hundreds of variables. The code below will return a list of variables with all missing values.
+You can clearly see which columns are filled with missing data but this would not be the case if you were dealing with millions of rows across hundreds of variables. The code below will return a list of variables with all missing values.
 
 ```{r}
 # This returns a list of column names which are totally blank 

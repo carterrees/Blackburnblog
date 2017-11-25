@@ -30,7 +30,7 @@ item &lt;- c(&quot;socks&quot;, &quot;socks&quot;, &quot;shoes&quot;, &quot;shoe
           &quot;shoes&quot;,&quot;shoes&quot;, &quot;shoes&quot;, &quot;shoes&quot;, &quot;shoes&quot;,
           &quot;trimmer&quot;, &quot;trimmer&quot;, &quot;trimmer&quot;)
 dat_miss2 &lt;- rep(NA, 14)
-df &lt;- data.frame(customer_id,dat_miss1, visit_num, item, dat_miss2)
+df &lt;- data.frame(customer_id, dat_miss1, visit_num, item, dat_miss2)
 
 library(dplyr) #Load dplyr here for the tbl_df call.
 print(tbl_df(df), n = 14)</code></pre>
@@ -51,7 +51,7 @@ print(tbl_df(df), n = 14)</code></pre>
 ## 12       aid98        NA         1 trimmer        NA
 ## 13       aid98        NA         1 trimmer        NA
 ## 14       aid98        NA         1 trimmer        NA</code></pre>
-<p>You can clearly see which columns are filled with missing data but this wouldn’t be the case if you were dealing with millions of rows across hundreds of variables. The code below will return a list of variables with all missing values.</p>
+<p>You can clearly see which columns are filled with missing data but this would not be the case if you were dealing with millions of rows across hundreds of variables. The code below will return a list of variables with all missing values.</p>
 <pre class="r"><code># This returns a list of column names which are totally blank 
 # and thier location in the data frame.
 
