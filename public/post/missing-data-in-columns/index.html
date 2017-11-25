@@ -7,7 +7,7 @@
   <meta name="description" content="">
   <meta name="generator" content="Hugo 0.30.2" />
 
-  <title>Counting transaction items &middot; Carter I. Rees, PhD</title>
+  <title>Missing data in columns &middot; Carter I. Rees, PhD</title>
 
   
   
@@ -197,7 +197,7 @@
 
 
 <div class="header">
-  <h1>Counting transaction items</h1>
+  <h1>Missing data in columns</h1>
   <h2></h2>
 </div>
 <div class="content">
@@ -206,7 +206,7 @@
 
   <div>
     <i class="fa fa-calendar fa-fw"></i>
-    <time>11 Nov 2017, 00:00</time>
+    <time>25 Nov 2017, 00:00</time>
   </div>
 
   
@@ -219,9 +219,9 @@
   <div>
     <i class="fa fa-tags fa-fw"></i>
     
-      <a class="post-taxonomy-tag" href="/tags/dplyr">dplyr</a>&nbsp;&#47;
+      <a class="post-taxonomy-tag" href="/tags/missing-data">missing data</a>&nbsp;&#47;
     
-      <a class="post-taxonomy-tag" href="/tags/tidyr">tidyr</a>
+      <a class="post-taxonomy-tag" href="/tags/ifelse">ifelse</a>
     
   </div>
   
@@ -229,13 +229,14 @@
 
 </div>
 
-  <p>In this post I will show you how to count the number of items a user has selected (or bought, or triggered) within a data feed.</p>
-<p>Transaction data can be a treasure trove of user behavior if you can get it into the right format for counting. I have put together a simple example below on how you can use R to get counts of user click behaviors at various levels of aggregation. Note: the data are entered in a sorted format. You could easily accomplish this by using the arrange command within dplyr.</p>
-<pre class="r"><code># Setup example data
+  <p>The purpose of this post is to show an easy way to find data frame columns which have all missing data.</p>
+<p>We live in a world of big data. Often our data frames have several hundred if not thousands of variables. Not all variables are useful in that they may not contain any actual values. This is often the case with data exported from various business software. I like to get a list of these columns as part of the data processing step in a research project.</p>
+<pre class="r"><code># Setting up an example data frome.
 customer_id &lt;- c(&quot;aid123&quot;,&quot;aid123&quot;,&quot;aid123&quot;, &quot;aid123&quot;,
                  &quot;aid432&quot;,&quot;aid432&quot;,
                  &quot;aid887&quot;,&quot;aid887&quot;,&quot;aid887&quot;,&quot;aid887&quot;,&quot;aid887&quot;,
                  &quot;aid98&quot;,&quot;aid98&quot;, &quot;aid98&quot;)
+dat_miss1 &lt;- rep(NA, 14) # Create a vector with 14 missing values 
 visit_num &lt;- c(&quot;1&quot;, &quot;1&quot;, &quot;1&quot;, &quot;2&quot;,
                &quot;1&quot;, &quot;1&quot;,
                &quot;1&quot;, &quot;2&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;,
@@ -244,77 +245,57 @@ item &lt;- c(&quot;socks&quot;, &quot;socks&quot;, &quot;shoes&quot;, &quot;shoe
           &quot;tires&quot;, &quot;brakes&quot;, 
           &quot;shoes&quot;,&quot;shoes&quot;, &quot;shoes&quot;, &quot;shoes&quot;, &quot;shoes&quot;,
           &quot;trimmer&quot;, &quot;trimmer&quot;, &quot;trimmer&quot;)
-transactions &lt;- data.frame(customer_id,visit_num, item)
+dat_miss2 &lt;- rep(NA, 14)
+df &lt;- data.frame(customer_id,dat_miss1, visit_num, item, dat_miss2)
 
 library(dplyr) #Load dplyr here for the tbl_df call.
-print(tbl_df(transactions), n = 14)</code></pre>
-<pre><code>## # A tibble: 14 x 3
-##    customer_id visit_num    item
-##         &lt;fctr&gt;    &lt;fctr&gt;  &lt;fctr&gt;
-##  1      aid123         1   socks
-##  2      aid123         1   socks
-##  3      aid123         1   shoes
-##  4      aid123         2   shoes
-##  5      aid432         1   tires
-##  6      aid432         1  brakes
-##  7      aid887         1   shoes
-##  8      aid887         2   shoes
-##  9      aid887         2   shoes
-## 10      aid887         3   shoes
-## 11      aid887         4   shoes
-## 12       aid98         1 trimmer
-## 13       aid98         1 trimmer
-## 14       aid98         1 trimmer</code></pre>
-<p>Now that the data is set up, we can count items by visit number by visitor id and then a higher level of aggregation at just visitor id. You can imagine that if you had a date value the aggregation could by visitor id by date of which the result would be daily user behavior counts.</p>
-<pre class="r"><code>library(tidyr)</code></pre>
-<pre class="r"><code># Count items by visitor id and visit number.
-purchases_v1 &lt;- transactions %&gt;% group_by(customer_id, visit_num) %&gt;% 
-  count(item) %&gt;%
-  spread(item, n, fill=0)
+print(tbl_df(df), n = 14)</code></pre>
+<pre><code>## # A tibble: 14 x 5
+##    customer_id dat_miss1 visit_num    item dat_miss2
+##         &lt;fctr&gt;     &lt;lgl&gt;    &lt;fctr&gt;  &lt;fctr&gt;     &lt;lgl&gt;
+##  1      aid123        NA         1   socks        NA
+##  2      aid123        NA         1   socks        NA
+##  3      aid123        NA         1   shoes        NA
+##  4      aid123        NA         2   shoes        NA
+##  5      aid432        NA         1   tires        NA
+##  6      aid432        NA         1  brakes        NA
+##  7      aid887        NA         1   shoes        NA
+##  8      aid887        NA         2   shoes        NA
+##  9      aid887        NA         2   shoes        NA
+## 10      aid887        NA         3   shoes        NA
+## 11      aid887        NA         4   shoes        NA
+## 12       aid98        NA         1 trimmer        NA
+## 13       aid98        NA         1 trimmer        NA
+## 14       aid98        NA         1 trimmer        NA</code></pre>
+<p>You can clearly see which columns are filled with missing data but this wouldn’t be the case if you were dealing with millions of rows across hundreds of variables. The code below will return a list of variables with all missing values.</p>
+<pre class="r"><code># This returns a list of column names which are totally blank 
+# and thier location in the data frame.
 
-print(purchases_v1)</code></pre>
-<pre><code>## # A tibble: 8 x 7
-## # Groups:   customer_id, visit_num [8]
-##   customer_id visit_num brakes shoes socks tires trimmer
-## *      &lt;fctr&gt;    &lt;fctr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
-## 1      aid123         1      0     1     2     0       0
-## 2      aid123         2      0     1     0     0       0
-## 3      aid432         1      1     0     0     1       0
-## 4      aid887         1      0     1     0     0       0
-## 5      aid887         2      0     2     0     0       0
-## 6      aid887         3      0     1     0     0       0
-## 7      aid887         4      0     1     0     0       0
-## 8       aid98         1      0     0     0     0       3</code></pre>
-<p>The table above accurately reflects the transaction data. Visitor aid123 bought 1 pair of shoes and 2 pair of socks on the first visit.</p>
-<p>The follwing code will create a summary of purchases at the vistor level regardless of visit number.</p>
-<pre class="r"><code># Count items by visitor id and visit number.
-purchases_v2 &lt;- transactions %&gt;% group_by(customer_id) %&gt;% 
-  count(item) %&gt;%
-  spread(item, n, fill=0)
+miss_cols &lt;- which(sapply(df, function(x)all(is.na(x))) == TRUE)
+miss_cols</code></pre>
+<pre><code>## dat_miss1 dat_miss2 
+##         2         5</code></pre>
+<p>Changing the value to FALSE gives you the columns which are not blank and have information useful for your analyses.</p>
+<pre class="r"><code># This returns a list of column names which are not blank 
+# and their location in the data frame.
 
-print(purchases_v2)</code></pre>
-<pre><code>## # A tibble: 4 x 6
-## # Groups:   customer_id [4]
-##   customer_id brakes shoes socks tires trimmer
-## *      &lt;fctr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
-## 1      aid123      0     2     2     0       0
-## 2      aid432      1     0     0     1       0
-## 3      aid887      0     5     0     0       0
-## 4       aid98      0     0     0     0       3</code></pre>
-<p>We can now see that visitor aid887 had 5 shoe purchases that were spread over 4 visits but are now aggregated to reflect overall purchase behavior.</p>
+nonmiss_cols &lt;- which(sapply(df, function(x)all(is.na(x))) == FALSE)
+nonmiss_cols</code></pre>
+<pre><code>## customer_id   visit_num        item 
+##           1           3           4</code></pre>
 
 
   
 <div class="prev-next-post pure-g">
   <div class="pure-u-1-24" style="text-align: left;">
     
-    <a href="/post/simple-quadratic-regression-example/"><i class="fa fa-chevron-left"></i></a>
+    <a href="/post/counting-items-in-your-transaction-basket/"><i class="fa fa-chevron-left"></i></a>
     
   </div>
   <div class="pure-u-10-24">
     
     <nav class="prev">
-      <a href="/post/simple-quadratic-regression-example/">Simple Quadratic Regression Example</a>
+      <a href="/post/counting-items-in-your-transaction-basket/">Counting transaction items</a>
     </nav>
     
   </div>
@@ -323,14 +304,8 @@ print(purchases_v2)</code></pre>
   </div>
   <div class="pure-u-10-24">
     
-    <nav class="next">
-      <a href="/post/missing-data-in-columns/">Missing data in columns</a>
-    </nav>
-    
   </div>
   <div class="pure-u-1-24" style="text-align: right;">
-    
-    <a href="/post/missing-data-in-columns/"><i class="fa fa-chevron-right"></i></a>
     
   </div>
 </div>

@@ -1,0 +1,68 @@
+---
+title: Missing data in columns
+author: Carter Rees
+date: '2017-11-25'
+slug: missing-data-in-columns
+categories:
+  - R
+tags:
+  - missing data
+  - ifelse
+---
+
+
+
+<p>The purpose of this post is to show an easy way to find data frame columns which have all missing data.</p>
+<p>We live in a world of big data. Often our data frames have several hundred if not thousands of variables. Not all variables are useful in that they may not contain any actual values. This is often the case with data exported from various business software. I like to get a list of these columns as part of the data processing step in a research project.</p>
+<pre class="r"><code># Setting up an example data frome.
+customer_id &lt;- c(&quot;aid123&quot;,&quot;aid123&quot;,&quot;aid123&quot;, &quot;aid123&quot;,
+                 &quot;aid432&quot;,&quot;aid432&quot;,
+                 &quot;aid887&quot;,&quot;aid887&quot;,&quot;aid887&quot;,&quot;aid887&quot;,&quot;aid887&quot;,
+                 &quot;aid98&quot;,&quot;aid98&quot;, &quot;aid98&quot;)
+dat_miss1 &lt;- rep(NA, 14) # Create a vector with 14 missing values 
+visit_num &lt;- c(&quot;1&quot;, &quot;1&quot;, &quot;1&quot;, &quot;2&quot;,
+               &quot;1&quot;, &quot;1&quot;,
+               &quot;1&quot;, &quot;2&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;,
+               &quot;1&quot;, &quot;1&quot;, &quot;1&quot;)
+item &lt;- c(&quot;socks&quot;, &quot;socks&quot;, &quot;shoes&quot;, &quot;shoes&quot;,
+          &quot;tires&quot;, &quot;brakes&quot;, 
+          &quot;shoes&quot;,&quot;shoes&quot;, &quot;shoes&quot;, &quot;shoes&quot;, &quot;shoes&quot;,
+          &quot;trimmer&quot;, &quot;trimmer&quot;, &quot;trimmer&quot;)
+dat_miss2 &lt;- rep(NA, 14)
+df &lt;- data.frame(customer_id,dat_miss1, visit_num, item, dat_miss2)
+
+library(dplyr) #Load dplyr here for the tbl_df call.
+print(tbl_df(df), n = 14)</code></pre>
+<pre><code>## # A tibble: 14 x 5
+##    customer_id dat_miss1 visit_num    item dat_miss2
+##         &lt;fctr&gt;     &lt;lgl&gt;    &lt;fctr&gt;  &lt;fctr&gt;     &lt;lgl&gt;
+##  1      aid123        NA         1   socks        NA
+##  2      aid123        NA         1   socks        NA
+##  3      aid123        NA         1   shoes        NA
+##  4      aid123        NA         2   shoes        NA
+##  5      aid432        NA         1   tires        NA
+##  6      aid432        NA         1  brakes        NA
+##  7      aid887        NA         1   shoes        NA
+##  8      aid887        NA         2   shoes        NA
+##  9      aid887        NA         2   shoes        NA
+## 10      aid887        NA         3   shoes        NA
+## 11      aid887        NA         4   shoes        NA
+## 12       aid98        NA         1 trimmer        NA
+## 13       aid98        NA         1 trimmer        NA
+## 14       aid98        NA         1 trimmer        NA</code></pre>
+<p>You can clearly see which columns are filled with missing data but this wouldn’t be the case if you were dealing with millions of rows across hundreds of variables. The code below will return a list of variables with all missing values.</p>
+<pre class="r"><code># This returns a list of column names which are totally blank 
+# and thier location in the data frame.
+
+miss_cols &lt;- which(sapply(df, function(x)all(is.na(x))) == TRUE)
+miss_cols</code></pre>
+<pre><code>## dat_miss1 dat_miss2 
+##         2         5</code></pre>
+<p>Changing the value to FALSE gives you the columns which are not blank and have information useful for your analyses.</p>
+<pre class="r"><code># This returns a list of column names which are not blank 
+# and their location in the data frame.
+
+nonmiss_cols &lt;- which(sapply(df, function(x)all(is.na(x))) == FALSE)
+nonmiss_cols</code></pre>
+<pre><code>## customer_id   visit_num        item 
+##           1           3           4</code></pre>

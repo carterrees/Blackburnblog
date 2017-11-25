@@ -1,0 +1,57 @@
+---
+title: Missing data in columns
+author: Carter Rees
+date: '2017-11-25'
+slug: missing-data-in-columns
+categories:
+  - R
+tags:
+  - missing data
+  - ifelse
+---
+
+The purpose of this post is to show an easy way to find data frame columns which have all missing data.
+
+We live in a world of big data. Often our data frames have several hundred if not thousands of variables. Not all variables are useful in that they may not contain any actual values. This is often the case with data exported from various business software. I like to get a list of these columns as part of the data processing step in a research project.
+
+```{r message = FALSE}
+# Setting up an example data frome.
+customer_id <- c("aid123","aid123","aid123", "aid123",
+                 "aid432","aid432",
+                 "aid887","aid887","aid887","aid887","aid887",
+                 "aid98","aid98", "aid98")
+dat_miss1 <- rep(NA, 14) # Create a vector with 14 missing values 
+visit_num <- c("1", "1", "1", "2",
+               "1", "1",
+               "1", "2", "2", "3", "4",
+               "1", "1", "1")
+item <- c("socks", "socks", "shoes", "shoes",
+          "tires", "brakes", 
+          "shoes","shoes", "shoes", "shoes", "shoes",
+          "trimmer", "trimmer", "trimmer")
+dat_miss2 <- rep(NA, 14)
+df <- data.frame(customer_id,dat_miss1, visit_num, item, dat_miss2)
+
+library(dplyr) #Load dplyr here for the tbl_df call.
+print(tbl_df(df), n = 14)
+```
+
+You can clearly see which columns are filled with missing data but this wouldn't be the case if you were dealing with millions of rows across hundreds of variables. The code below will return a list of variables with all missing values.
+
+```{r}
+# This returns a list of column names which are totally blank 
+# and thier location in the data frame.
+
+miss_cols <- which(sapply(df, function(x)all(is.na(x))) == TRUE)
+miss_cols
+```
+
+Changing the value to FALSE gives you the columns which are not blank and have information useful for your analyses.
+
+```{r}
+# This returns a list of column names which are not blank 
+# and their location in the data frame.
+
+nonmiss_cols <- which(sapply(df, function(x)all(is.na(x))) == FALSE)
+nonmiss_cols
+```
