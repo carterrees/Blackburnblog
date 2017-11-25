@@ -7,7 +7,8 @@ categories:
   - R
 tags:
   - missing data
-  - ifelse
+  - which
+  - sapply
 ---
 
 The purpose of this post is to show an easy way to find data frame columns which have all missing data.

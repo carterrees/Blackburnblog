@@ -58,15 +58,6 @@
     </item>
     
     <item>
-      <title>Ifelse</title>
-      <link>/tags/ifelse/</link>
-      <pubDate>Sat, 25 Nov 2017 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/ifelse/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>Missing Data</title>
       <link>/tags/missing-data/</link>
       <pubDate>Sat, 25 Nov 2017 00:00:00 +0000</pubDate>
@@ -103,6 +94,15 @@
     </item>
     
     <item>
+      <title>Sapply</title>
+      <link>/tags/sapply/</link>
+      <pubDate>Sat, 25 Nov 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/sapply/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Templates</title>
       <link>/tags/templates/</link>
       <pubDate>Wed, 02 Apr 2014 00:00:00 +0000</pubDate>
@@ -126,6 +126,15 @@
       <pubDate>Sat, 11 Nov 2017 00:00:00 +0000</pubDate>
       
       <guid>/tags/tidyr/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Which</title>
+      <link>/tags/which/</link>
+      <pubDate>Sat, 25 Nov 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/which/</guid>
       <description></description>
     </item>
     
