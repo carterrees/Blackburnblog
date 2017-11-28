@@ -41,7 +41,7 @@ You can clearly see which columns are filled with missing data but this would no
 
 ```{r}
 # This returns a list of column names which are totally blank 
-# and thier location in the data frame.
+# and their location in the data frame.
 
 miss_cols <- which(sapply(df, function(x)all(is.na(x))) == TRUE)
 miss_cols
